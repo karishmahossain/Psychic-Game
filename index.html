@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>The Psychic Game</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Added link to the jQuery library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <!-- Added a link to Bootstrap-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+</head>
+<body>
+
+  <div class="jumbotron">
+
+      <h1 class="text-center">The Psychic Game</h1>
+
+    <h2 class="text-center">Guess what letter I'm thinking of!</h2>
+    <h3 class="text-center">Type in your guess and click the button!</h3>
+
+    <div class="text-center">
+
+      <!-- Text Box for User Input and Button to Run Code  -->
+      <input type="text" id="txt_box" onfocus = "this.value=''" value = "Type Any Letter"/>
+      <button id="guess-button" class="btn btn-primary btn-lg fa fa-question"></button>
+      <button id="restart-button" class="btn btn-primary btn-lg">Play Again!</button>
+   
+    </div>
+
+  </div>
+
+  
+   <!-- Number of Wins -->
+   <h3>Wins:</h3>
+   <h3 class="text-center" id="win-count"></h3>
+
+    <!-- Number of Losses -->
+    <h3>Losses:</h3>
+  <h3 class="text-center" id="loss-count"></h3>
+
+  <!-- Number of Guesses Left -->
+  <h3>Guesses Left:</h3>
+  <h3 class="text-center" id="guess-count"></h3>
+
+  <!-- Letters Guessed -->
+  <h3>Your Guesses So Far:</h3>
+  <h3 class="text-center" id="user-guess"></h3>
+
+  <h3>Message:</h3>
+  <h3 class="text-center" id="message"></h3>
+
+  <script type="text/javascript">
+
+
+var letters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+var compChoice = Math.floor((Math.random()*26));
+var answer = letters[compChoice];
+var guess = "";
+
+var guessCount = 9;
+var winCount = 0;
+var lossCount = 0;
+
+function computerGuess (){
+var letters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+var compChoice = Math.floor((Math.random()*26));
+var answer = letters[compChoice];
+var guess = "";
+return answer;
+}
+
+    $(document).ready(function() {
+
+       $("#win-count").text(winCount);
+       $("#loss-count").text(lossCount);
+       $("#guess-count").text(guessCount);
+       $("#user-guess").text(guess);
+    
+$("#guess-button").on("click", function() {
+          
+        guess = $("#txt_box").val();
+if (guess == answer){
+winCount = winCount+1;
+$("#win-count").text(winCount);
+$("#message").text("YOU WIN! Press Play Again Button to Play Again");
+}
+
+else{
+  guessCount -= 1;
+  $("#guess-count").text(guessCount);
+  $("#user-guess").append(guess);
+  if (guessCount == 0){
+    $("#message").text("YOU LOSE! Press Play Again Button to Play Again");
+    lossCount +=1;
+    $("#loss-count").text(lossCount);
+  }
+}
+       });  
+
+       $("#restart-button").on("click", function() {
+          
+        guessCount = 9;
+        $("#guess-count").text(guessCount);
+        $("#win-count").text(winCount);
+        $("#loss-count").text(lossCount);
+        $("#user-guess").text("");
+        $("#message").text("");
+answer = computerGuess();
+         });  
+
+
+      });  
+  
+  </script>
+
+</body>
+</html>
